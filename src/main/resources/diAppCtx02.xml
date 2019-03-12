@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	
+	<!-- 의존 주입할 영문버전 계산기 클래스 -->
+	<bean id="calculator" class="DI.CalculatorEN"/>	
+	<!--
+		MyCalculator my
+			= new MyCalculator(7, 3, calculator); 
+	 -->
+	<bean id="myCalculator" class="DI.MyCalculator" >
+<!-- 	<constructor-arg>
+			<value type="int">7</value>
+		</constructor-arg>
+		<constructor-arg value="3" /> -->
+		
+		<!-- 
+			매개 변수의 type이 정해진 것과 아닌 것의 차이
+			type이 정해진 두 번째 3 데이터가 생성자의 첫 번째 인자로,
+			들어가버리는 상황이 발생! => 생성자 혼동  
+				: type을 정확히 지정해주면 혼동X
+		-->
+		<constructor-arg value="7" />
+		<constructor-arg>
+			<value type="int">3</value>
+		</constructor-arg>
+		<constructor-arg ref="calculator" />
+	</bean>
+	
+</beans>
